@@ -1,0 +1,17 @@
+<div fxLayout="column" fxFlex>
+
+    <md-toolbar color="primary">
+        <span class="white-text-color">
+            Memory Game
+        </span>
+        <span fxFlex></span>
+    </md-toolbar>
+
+    <div fxFlex="100%" class="mt4 pt2" fxLayout="column" fxLayoutAlign="center stretch">
+        <div class="content" fxLayout="row" fxLayoutGap="16px">
+            <div fxFlex.lt-sm="100%" fxFlex="70%" fxFlexOffset.gt-xs="15%">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</div>

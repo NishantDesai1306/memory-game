@@ -1,0 +1,55 @@
+<div class="mt4">
+  <div *ngIf="timer === AppConfig.TIME_TO_PLAY" fxLayout fxLayoutAlign="center center">
+    <h2>Memorize tiles as fast as you can</h2>
+  </div>
+
+  <div *ngIf="!timer || isGameCompleted" fxLayout fxLayoutAlign="center center">
+    <md-card fxFlex="50%">
+      <md-card-content>
+        <h2 [ngClass]="{'red-text': !isGameCompleted, 'green-text': isGameCompleted}">
+          {{isGameCompleted ? "Congratualtions you've finished the game!!!" : "Time's Up"}}
+        </h2>
+        <h3>
+          You've scored 
+          <strong>{{points}}</strong> 
+          {{timer ? '(' + timer + ' bonus points' + ')' : ''}} 
+          points.
+        </h3>
+      </md-card-content>
+      <md-card-actions fxLayout fxLayoutAlign="center">
+        <button md-raised-button color="primary" (click)="playAgain()">
+          <md-icon class="md-24">videogame_asset</md-icon>
+          Play Again
+        </button>
+      </md-card-actions>
+    </md-card>
+  </div>
+          
+  <div *ngIf="timer && timer < AppConfig.TIME_TO_PLAY && !isGameCompleted">
+    <div fxLayout fxLayoutAlign="center center">
+      <h3>Score: {{points}}</h3>&nbsp; &nbsp;&nbsp; &nbsp;
+      <h3>Time Left: {{timer | timer}}</h3>
+    </div>
+  </div>
+
+  <div
+    *ngIf="timer && !isGameCompleted"
+    fxLayout="row"
+    fxLayoutWrap
+  >
+    <div
+      fxFlex="{{cardSize}}"
+      *ngFor="let card of cards;"
+      class="p2"
+    >
+      <md-card
+        class="mat-card my-card"
+        (click)="toggleFlip(card)"
+        [style.visibility]="card.isVisible ? 'visible' : 'hidden'"
+        [@flipState]="card.flip"
+      >
+        <div class="tp-box__side tp-box__back {{card.class}}"></div>
+      </md-card>
+    </div>
+  </div>
+</div>
