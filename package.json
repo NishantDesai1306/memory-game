@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env UPLOAD_PATH=./upload gulp",
+    "start": "gulp",
     "postinstall": "typings install"
   },
   "keywords": [],
