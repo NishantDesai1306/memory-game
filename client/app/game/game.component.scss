@@ -1,3 +1,8 @@
+$red-color: #DD3A3A;
+$yellow-color: #D8D82B;
+$green-color: #16AA36;
+$blue-color: #2567B3;
+
 .my-card {
     padding: 0 !important;
     height: 100px;
@@ -17,18 +22,21 @@
 }
 
 .red-card {
-    background: #DD3A3A !important;
+    background: $red-color !important;
+}
+.yellow-card {
+    background: $yellow-color !important;
 }
 .green-card {
-    background: #16AA36 !important;
+    background: $green-color !important;
 }
 .blue-card {
-    background: #2567B3 !important;
+    background: $blue-color !important;
 }
 
 .red-text {
-    color: #DD3A3A !important;
+    color: $red-color !important;
 }
 .green-text {
-    color: #16AA36 !important;
+    color: $green-color !important;
 }

@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import AppConfig from '../app.config';
 
 interface Card {
-    id: Number,
-    class: String,
-    flip: String,
-    isVisible: Boolean
+    id: number,
+    class: string,
+    flip: string,
+    shrink: string
 };
 
 @Injectable()
@@ -17,7 +17,7 @@ export class GameService {
 
     generateCards(count): Card[] {
         const cards = [];
-        const colorClasses = ['red-card', 'green-card', 'blue-card'];
+        const colorClasses = ['red-card', 'yellow-card', 'green-card', 'blue-card'];
         const emptyCards = [];
         const getRandomCard = () => {
             const randomCard1Index = Math.floor(Math.random() * emptyCards.length) + 0
@@ -42,13 +42,13 @@ export class GameService {
                 id: card1Id,
                 class: colorClasses[randomColor],
                 flip: 'active',
-                isVisible: true
+                shrink: 'inactive'
             }
             const card2: Card = {
                 id: card2Id,
                 class: colorClasses[randomColor],
                 flip: 'active',
-                isVisible: true
+                shrink: 'inactive'
             }
     
             cards[card1Id] = card1;

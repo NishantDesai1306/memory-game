@@ -1,8 +1,9 @@
-import {MatCardModule, MdIconButtonCssMatStyler} from '@angular/material';
+import {FlexLayoutModule} from '@angular/flex-layout';
 import { Component, OnInit, trigger, state, style, transition, animate, HostListener } from '@angular/core';
 import AppConfig from '../app.config';
-
 import { GameService } from './../shared/game.service';
+
+const ANIMATION_DURATION_MS = 500;
 
 @Component({
   templateUrl: './game.component.html',
@@ -14,8 +15,18 @@ import { GameService } from './../shared/game.service';
       state('inactive', style({
         transform: 'rotateY(0)'
       })),    
-      transition('active => inactive', animate('500ms ease-out')),
-      transition('inactive => active', animate('500ms ease-in'))
+      transition('active => inactive', animate(`${ANIMATION_DURATION_MS}ms ease-out`)),
+      transition('inactive => active', animate(`${ANIMATION_DURATION_MS}ms ease-in`))
+    ]),
+    trigger('shrinkState', [
+      state('active', style({
+        transform: 'scale(0)'
+      })),
+      state('inactive',   style({
+        transform: 'scale(1)'
+      })),
+      transition('inactive => active', animate(`${ANIMATION_DURATION_MS}ms ease-in`)),
+      transition('active => inactive', animate(`${ANIMATION_DURATION_MS}ms ease-out`))
     ])  
   ]
 })
@@ -24,6 +35,7 @@ export class GameComponent {
   private cards = [];
   private flippedCard1: any;
   private flippedCard2: any;
+  private placeholderDuration = 5000;
 
   private isGameCompleted: boolean;
   private points: number;
@@ -42,12 +54,14 @@ export class GameComponent {
     this.points = 0;
     this.timer = AppConfig.TIME_TO_PLAY;
 
-    this.cards.forEach((card) => card.flip = 'inactive');
+    this.cards.forEach((card) => {
+      card.flip = 'inactive';
+    });
+  }
 
-    setTimeout(() => {
-      this.cards.forEach((card) => card.flip = 'active');
-      this.startTimer();
-    }, 3000);
+  startGame() {
+    this.cards.forEach((card) => card.flip = 'active');
+    this.startTimer();
   }
 
   startTimer() {
@@ -75,25 +89,23 @@ export class GameComponent {
 
   processFlippedCards() {
     new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const isSuccess = this.flippedCard1.class === this.flippedCard2.class;
-        this.flippedCard1.flip = this.flippedCard2.flip = 'active';
+      const isSuccess = this.flippedCard1.class === this.flippedCard2.class;
+      const animateField = isSuccess ? 'shrink' : 'flip';
 
-        if(isSuccess) {
-          this.flippedCard1.isVisible = this.flippedCard2.isVisible = false;
-        }
+      this.flippedCard1[animateField] = this.flippedCard2[animateField] = 'active';
+      
+      this.flippedCard1 = this.flippedCard2 = null;
 
-        this.flippedCard1 = this.flippedCard2 = null;
-
+      setTimeout(() => { // wait for flip or shrink aniamtion to complete
         resolve(isSuccess);
-      }, 600);
+      }, ANIMATION_DURATION_MS);
     })
     .then((isSuccess) => {
       if(isSuccess) {
         this.points += 10;
 
         const visibleCardsCount = this.cards.reduce((partialSum, card) => {
-          return card.isVisible ? partialSum + 1 : partialSum;
+          return card.shrink === 'inactive' ? partialSum + 1 : partialSum;
         }, 0);
 
         // there's no point is firceing user to click last two remaining cards
@@ -118,7 +130,10 @@ export class GameComponent {
       }
 
       this.flippedCard2 = card;
-      this.processFlippedCards();
+
+      setTimeout(() => { //wait for flip aniamtion to complete
+        this.processFlippedCards();
+      }, ANIMATION_DURATION_MS);
     }
     else {
       this.flippedCard1 = card;
@@ -133,6 +148,6 @@ export class GameComponent {
 
   @HostListener('window:beforeunload')
   canDeactivate(): boolean { // can deactivate only if result screen is being displayed
-    return !this.timer || this.isGameCompleted;
+    return true;
   }
  }

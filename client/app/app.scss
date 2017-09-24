@@ -11,6 +11,7 @@ $primary: mat-palette($mat-indigo);
 $accent: mat-palette($mat-grey);
 $theme: mat-light-theme($primary, $accent);
 @include angular-material-theme($theme);
+
 body {
     background-color: #ebebff !important;
 }
@@ -18,33 +19,4 @@ body {
 .mat-primary.mat-toolbar {
     position: fixed;
     z-index: 2;
-}
-
-.indigo-background-color {
-    background: mat-color($mat-indigo, 500) !important;
-}
-
-.white-background-color {
-    background: white;
-}
-
-.white-text-color {
-    color: white;
-}
-
-.white-input {
-    color: white;
-    .mat-input-placeholder {
-        color: white !important;
-    }
-    .mat-input-underline {
-        background: mat-color($mat-grey, 300);
-        .mat-input-ripple {
-            background: white;
-        }
-    }
-}
-
-.white-progress-bar .mat-progress-bar-fill::after {
-    background: white;
 }

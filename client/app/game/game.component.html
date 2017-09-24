@@ -1,6 +1,17 @@
-<div class="mt4">
-  <div *ngIf="timer === AppConfig.TIME_TO_PLAY" fxLayout fxLayoutAlign="center center">
-    <h2>Memorize tiles as fast as you can</h2>
+<div class="mt3">
+  <div class="mb2">
+    <div *ngIf="timer === AppConfig.TIME_TO_PLAY" fxLayout fxLayoutAlign="center center">
+      <placeholder [time]="placeholderDuration" (complete)="startGame()">
+        <h3>Memorize tiles as fast as you can</h3>
+      </placeholder>
+    </div>
+            
+    <div *ngIf="timer && timer < AppConfig.TIME_TO_PLAY && !isGameCompleted">
+      <div fxLayout fxLayoutAlign="center center">
+        <h3>Score: {{points}}</h3>&nbsp; &nbsp;&nbsp; &nbsp;
+        <h3>Time Left: {{timer | timer}}</h3>
+      </div>
+    </div>
   </div>
 
   <div *ngIf="!timer || isGameCompleted" fxLayout fxLayoutAlign="center center">
@@ -24,13 +35,6 @@
       </md-card-actions>
     </md-card>
   </div>
-          
-  <div *ngIf="timer && timer < AppConfig.TIME_TO_PLAY && !isGameCompleted">
-    <div fxLayout fxLayoutAlign="center center">
-      <h3>Score: {{points}}</h3>&nbsp; &nbsp;&nbsp; &nbsp;
-      <h3>Time Left: {{timer | timer}}</h3>
-    </div>
-  </div>
 
   <div
     *ngIf="timer && !isGameCompleted"
@@ -45,8 +49,8 @@
       <md-card
         class="mat-card my-card"
         (click)="toggleFlip(card)"
-        [style.visibility]="card.isVisible ? 'visible' : 'hidden'"
         [@flipState]="card.flip"
+        [@shrinkState]="card.shrink"
       >
         <div class="tp-box__side tp-box__back {{card.class}}"></div>
       </md-card>
