@@ -1,4 +1,4 @@
-Demo: [Memory Game](https://angular-wycfzb.stackblitz.io)
+Demo: [Memory Game](https://memory-game1.herokuapp.com/game)
 
 Setting up this project
 
