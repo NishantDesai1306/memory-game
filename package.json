@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "gulp",
+    "start": "node server/server.js",
+    "dev": "gulp",
     "typings": "typings install"
   },
   "keywords": [],

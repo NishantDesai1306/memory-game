@@ -1,0 +1,31 @@
+.my-card {
+  padding: 0 !important;
+  height: 100px;
+  color: white !important;
+  transform-style: preserve-3d;
+  transition: transform 1s;
+  cursor: pointer; }
+
+.tp-box__side {
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  user-select: none; }
+
+.red-card {
+  background: #DD3A3A !important; }
+
+.yellow-card {
+  background: #D8D82B !important; }
+
+.green-card {
+  background: #16AA36 !important; }
+
+.blue-card {
+  background: #2567B3 !important; }
+
+.red-text {
+  color: #DD3A3A !important; }
+
+.green-text {
+  color: #16AA36 !important; }
