@@ -1,11 +1,10 @@
 {
-  "name": "angular2-starter",
+  "name": "memory-game",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "gulp",
-    "postinstall": "typings install"
+    "start": "gulp"
   },
   "keywords": [],
   "author": "",
